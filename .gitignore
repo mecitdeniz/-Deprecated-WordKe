@@ -30,8 +30,8 @@ local.properties
 *.iml
 
 
-android/app/build
-android/app/release
+android/app/build/
+android/app/release/
 
 # node.js
 #
