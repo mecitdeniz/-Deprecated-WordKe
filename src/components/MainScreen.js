@@ -23,6 +23,7 @@ class MainScreen extends React.Component {
             showAlert: false,
             isConfigured: false
         };
+        const { coins } = this.props
     }
 
     componentDidMount(){
@@ -76,14 +77,15 @@ class MainScreen extends React.Component {
         
     }
     render(){
+        const { coins } = this.props
         const {showAlert} = this.state;
         return(
             <SafeAreaView style={styles.container}>
                 <StatusBar hidden/>
-                <ImageBackground source={require('../assets/bg.png')} style={{flex:1}}>
+                <ImageBackground source={require('../assets/bg1.png')} style={{flex:1}}>
                     <View style={{height:100,flexDirection:"row",justifyContent:"flex-end",alignItems:"center"}}>
                         <View style={styles.textContainer}>
-                            <Text style={styles.text}>100</Text>
+        <Text style={styles.text}>{coins}</Text>
                             <Image source={require('../assets/coin.png')} style={{width:40,height:40}}/>
                         </View>
                         <View style={styles.textContainer}>

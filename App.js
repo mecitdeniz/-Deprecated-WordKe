@@ -3,31 +3,38 @@ import React,{Component} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
+
+import { Provider } from 'react-redux';
+import { store } from './src/store/store';
 //Screens
-import MainScreen from './screens/MainScreen';
-import GameScreen from './screens/GameScreen';
-import ShopScreen from './screens/ShopScreen';
+import MainScreen from './src/components/MainScreen';
+import Main from './src/components/Main';
+import Game from './src/components/Game';
+import GameScreen from './src/components/GameScreen';
+import ShopScreen from './src/components/ShopScreen';
 
 
 export default class App extends Component {
   render(){
     return(
-      <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen 
-        name="Main" 
-        component={MainScreen} 
-        options={{ headerShown: false }}/>
-        <Stack.Screen 
-        name="Game" 
-        component={GameScreen} 
-        options={{ headerShown: false }}/>
-        <Stack.Screen 
-        name="Shop" 
-        component={ShopScreen} 
-        options={{ headerShown: false }}/>
-      </Stack.Navigator>
-    </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen 
+            name="Main" 
+            component={Main} 
+            options={{ headerShown: false }}/>
+            <Stack.Screen 
+              name="Game" 
+              component={Game} 
+              options={{ headerShown: false }}/>
+            <Stack.Screen 
+              name="Shop" 
+              component={ShopScreen} 
+              options={{ headerShown: false }}/>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
     );
   }
 }
