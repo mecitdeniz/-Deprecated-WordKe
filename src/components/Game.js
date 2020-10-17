@@ -74,10 +74,10 @@ const Game = ({navigation}) =>{
                         <Tile row={2} col={1}/>
                         <Tile row={2} col={2}/>
                     </View>
-                    <View style={[styles.column,{justifyContent:"center",paddingTop:10}]}>
-                        <Text style={{color:"white",fontSize:20,fontWeight:"bold"}}>{selectedRow}</Text>
-                        <Text style={{color:"white",fontSize:20,fontWeight:"bold"}}>{selectedCol}</Text>
-                    </View>
+                </View>
+                <View style={[styles.column,{justifyContent:"center",paddingTop:10}]}>
+                    <Text style={{color:"white",fontSize:20,fontWeight:"bold"}}>{selectedRow}</Text>
+                    <Text style={{color:"white",fontSize:20,fontWeight:"bold"}}>{selectedCol}</Text>
                 </View>
             </View>
             
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     },
     gameTable:{
         width:270,
-        height:400,
+        height:350,
         paddingVertical:20,
         paddingHorizontal:5,
         alignSelf:"center",

@@ -15,12 +15,17 @@ const Tile = (props)=>{
     const dispatch = useDispatch();
     return(
         <TouchableOpacity onPress={()=>{handleTilePress(row,col,selectedRow,selectedCol,dispatch,currentOrder)}}>
-            <ImageBackground source={require('../assets/t8.png')} style={styles.tile}>
+            <ImageBackground source={require('../assets/t8.png')} style={[styles.tile,getOpacity(row,col,selectedRow,selectedCol)]}>
                 <Text style={styles.text}>{currentOrder[row][col]}</Text>
             </ImageBackground>
         </TouchableOpacity>
         
     );
+}
+
+const getOpacity = (row,col,selectedRow,selectedCol) =>{
+    if(row === selectedRow && col === selectedCol) return { opacity : 0.7}
+    return { opacity : 1}
 }
 
 const handleTilePress = (row,col,selectedRow,selectedCol,dispatch,currentOrder) =>{
@@ -43,7 +48,7 @@ const styles = StyleSheet.create({
         height:80,
         borderWidth:0,
         justifyContent:"center",
-        alignItems:"center"
+        alignItems:"center",
       },
     text:{
         color:"white",
