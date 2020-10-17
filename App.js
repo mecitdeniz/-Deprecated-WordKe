@@ -10,8 +10,7 @@ import { store } from './src/store/store';
 import MainScreen from './src/components/MainScreen';
 import Main from './src/components/Main';
 import Game from './src/components/Game';
-import GameScreen from './src/components/GameScreen';
-import ShopScreen from './src/components/ShopScreen';
+import Shop from './src/components/Shop';
 
 
 export default class App extends Component {
@@ -30,7 +29,7 @@ export default class App extends Component {
               options={{ headerShown: false }}/>
             <Stack.Screen 
               name="Shop" 
-              component={ShopScreen} 
+              component={Shop} 
               options={{ headerShown: false }}/>
           </Stack.Navigator>
         </NavigationContainer>

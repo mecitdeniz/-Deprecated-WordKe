@@ -23,7 +23,16 @@ const Menu = (props)=>{
                     navigation.navigate("Game")}}>
                     <Image source={require('../assets/play.png')} style={styles.icon}/>
                 </TouchableOpacity>
-                <Text style={[styles.text,{color:"black"}]}>Oyna</Text>
+                <View style={{flexDirection:"row"}}>
+                    <TouchableOpacity style={styles.icon} onPress={()=>{
+                        navigation.navigate("Shop")}}>
+                        <Image source={require('../assets/shop.png')} style={styles.icon}/>
+                    </TouchableOpacity><TouchableOpacity style={styles.icon} onPress={()=>{
+                        navigation.navigate("Shop")}}>
+                        <Image source={require('../assets/about.png')} style={styles.icon}/>
+                    </TouchableOpacity>
+                </View>
+                
             </ImageBackground>
         </View>
     );
@@ -48,7 +57,8 @@ const styles = StyleSheet.create({
     },
     icon:{
         width:100,
-        height:100
+        height:100,
+        margin:5,
     }
 });
 
