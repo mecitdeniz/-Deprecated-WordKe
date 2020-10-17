@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     View,
     SafeAreaView,
@@ -7,6 +7,7 @@ import {
     Image,
     StyleSheet,
     Text,
+    Alert,
     ImageBackground,
     BackHandler,
     ToastAndroid,
@@ -16,13 +17,38 @@ import { useSelector, useDispatch } from 'react-redux';
 import CoinBar from './CoinBar';
 import Tile from './Tile';
 import AddBar from './AddBar';
+import { unSelect } from '../store/actions';
+
 
 const Game = ({navigation}) =>{
 
   const data = useSelector(state=>state);
-  const { coins, diamonds, isConfigured} = data;
+  const { coins, diamonds, selectedRow, selectedCol} = data;
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert("Hold on!", "Are you sure you want to go back?", [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel"
+        },
+        { text: "YES", onPress: () => {
+            dispatch(unSelect())
+            navigation.goBack()
+        } }
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
   return(
     <SafeAreaView style={styles.container}>
         <StatusBar hidden/>
@@ -34,33 +60,34 @@ const Game = ({navigation}) =>{
             <View style={{flex:1,justifyContent:"center"}}>
                 <View style={styles.gameTable}>
                     <View style={styles.column}>
-                        <Tile character="A"/>
-                        <Tile character="A"/>
-                        <Tile character="A"/>
+                        <Tile row={0} col={0}/>
+                        <Tile row={0} col={1}/>
+                        <Tile row={0} col={2}/>
                     </View>
                     <View style={styles.column}>
-                        <Tile character="A"/>
-                        <Tile character="A"/>
-                        <Tile character="A"/>
+                        <Tile row={1} col={0}/>
+                        <Tile row={1} col={1}/>
+                        <Tile row={1} col={2}/>
                     </View>
                     <View style={styles.column}>
-                        <Tile character="A"/>
-                        <Tile character="A"/>
-                        <Tile character="A"/>
+                        <Tile row={2} col={0}/>
+                        <Tile row={2} col={1}/>
+                        <Tile row={2} col={2}/>
                     </View>
                     <View style={[styles.column,{justifyContent:"center",paddingTop:10}]}>
-                        <Tile character="A"/>
+                        <Text style={{color:"white",fontSize:20,fontWeight:"bold"}}>{selectedRow}</Text>
+                        <Text style={{color:"white",fontSize:20,fontWeight:"bold"}}>{selectedCol}</Text>
                     </View>
                 </View>
             </View>
             
-            <AddBar
-                isConfigured={isConfigured}
-            />
+            <AddBar/>
         </ImageBackground>
     </SafeAreaView>
   );
 }
+
+
 
 const styles = StyleSheet.create({
     container:{

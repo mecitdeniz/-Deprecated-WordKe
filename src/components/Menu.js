@@ -7,14 +7,20 @@ import {
     ImageBackground,
     TouchableOpacity
 } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { setLevel } from '../store/actions';
+
 
 const Menu = (props)=>{
     const { navigation} = props;
+    const dispatch = useDispatch();
 
     return(
         <View style={styles.container}>
             <ImageBackground source={require('../assets/menu.png')} style={styles.background}>
-                <TouchableOpacity style={styles.icon} onPress={()=>{navigation.navigate("Game")}}>
+                <TouchableOpacity style={styles.icon} onPress={()=>{
+                    dispatch(setLevel())
+                    navigation.navigate("Game")}}>
                     <Image source={require('../assets/play.png')} style={styles.icon}/>
                 </TouchableOpacity>
                 <Text style={[styles.text,{color:"black"}]}>Oyna</Text>

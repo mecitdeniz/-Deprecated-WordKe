@@ -19,13 +19,14 @@ import CoinBar from './CoinBar';
 import AddBar from './AddBar';
 import Menu from './Menu';
 import { configure} from '../store/actions';
+const { handleTilePress } = require('../utils/game');
 
 const Main = ({navigation}) =>{
 
   const data = useSelector(state=>state);
   const { coins, diamonds, isConfigured } = data;
   const dispatch = useDispatch();
-
+  /*
   useEffect(() => {
     admob().setRequestConfiguration({
         // Update all future requests suitable for parental guidance
@@ -37,8 +38,9 @@ const Main = ({navigation}) =>{
         tagForUnderAgeOfConsent: true,
     }).then(() => {
         dispatch(configure())
+        console.log(Hey)
     });
-  })
+  })*/
 
   return(
     <SafeAreaView style={styles.container}>
@@ -49,7 +51,7 @@ const Main = ({navigation}) =>{
                 diamonds={ diamonds }
             />
             <Menu navigation={navigation}/>
-            <AddBar isConfigured={isConfigured}/>
+            <AddBar/>
         </ImageBackground>
     </SafeAreaView>
   );
