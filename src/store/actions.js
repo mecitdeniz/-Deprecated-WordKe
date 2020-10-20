@@ -1,4 +1,4 @@
-import { SETLEVEL, UNSELECT, CONFIGURE, SELECTROW, SELECTCOL, REPLACE } from './actionTypes';
+import { SETLEVEL, UNSELECT, CONFIGURE, SELECTROW, SELECTCOL, REPLACE, WIN, PLAY } from './actionTypes';
 
 export const setLevel = () => ({
   type: SETLEVEL,
@@ -6,6 +6,14 @@ export const setLevel = () => ({
 
 export const configure = () => ({
   type: CONFIGURE,
+});
+
+export const win = () => ({
+  type: WIN,
+});
+
+export const play = () => ({
+  type: PLAY,
 });
 
 export const selectRow = (row) => ({
