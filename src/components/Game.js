@@ -17,13 +17,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import CoinBar from './CoinBar';
 import Tile from './Tile';
 import AddBar from './AddBar';
+import WinAlert from './WinAlert';
 import { unSelect } from '../store/actions';
 
 
 const Game = ({navigation}) =>{
 
   const data = useSelector(state=>state);
-  const { coins, diamonds, selectedRow, selectedCol} = data;
+  const { coins, diamonds, isWin } = data;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -57,30 +58,11 @@ const Game = ({navigation}) =>{
                 coins={ coins }
                 diamonds={ diamonds }
             />
-            <View style={{flex:1,justifyContent:"center"}}>
-                <View style={styles.gameTable}>
-                    <View style={styles.column}>
-                        <Tile row={0} col={0}/>
-                        <Tile row={0} col={1}/>
-                        <Tile row={0} col={2}/>
-                    </View>
-                    <View style={styles.column}>
-                        <Tile row={1} col={0}/>
-                        <Tile row={1} col={1}/>
-                        <Tile row={1} col={2}/>
-                    </View>
-                    <View style={styles.column}>
-                        <Tile row={2} col={0}/>
-                        <Tile row={2} col={1}/>
-                        <Tile row={2} col={2}/>
-                    </View>
-                </View>
-                <View style={[styles.column,{justifyContent:"center",paddingTop:10}]}>
-                    <Text style={{color:"white",fontSize:20,fontWeight:"bold"}}>{selectedRow}</Text>
-                    <Text style={{color:"white",fontSize:20,fontWeight:"bold"}}>{selectedCol}</Text>
-                </View>
-            </View>
             
+            <View style={{flex:1,justifyContent:"center"}}>
+                {renderContent(isWin)}
+            </View>
+
             <AddBar/>
         </ImageBackground>
     </SafeAreaView>
@@ -88,7 +70,41 @@ const Game = ({navigation}) =>{
 }
 
 
+const renderContent = (isWin) =>{
+  if(isWin) return(<WinAlert showAlert={true}/>)
+  else{
+    return(
+      <View>
+        <View style={styles.gameTable}>
+          <View style={styles.column}>
+            <Tile row={0} col={0}/>
+            <Tile row={0} col={1}/>
+            <Tile row={0} col={2}/>
+          </View>
+          <View style={styles.column}>
+            <Tile row={1} col={0}/>
+            <Tile row={1} col={1}/>
+            <Tile row={1} col={2}/>
+          </View>
+          <View style={styles.column}>
+            <Tile row={2} col={0}/>
+            <Tile row={2} col={1}/>
+            <Tile row={2} col={2}/>
+          </View>
+        </View>
+        
+      </View>
+    );
+  }
 
+}
+
+/*
+<View style={[styles.column,{justifyContent:"center",paddingTop:10}]}>
+          <Text style={{color:"white",fontSize:20,fontWeight:"bold"}}>{selectedRow}</Text>
+          <Text style={{color:"white",fontSize:20,fontWeight:"bold"}}>{selectedCol}</Text>
+        </View>
+*/
 const styles = StyleSheet.create({
     container:{
       flex:1,

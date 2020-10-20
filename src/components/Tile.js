@@ -6,15 +6,17 @@ import {
     Text,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { replace, selectCol, selectRow, unSelect } from '../store/actions';
+import { replace, selectCol, selectRow, unSelect, setLevel, win} from '../store/actions';
+
+const { checkOrder, getGameData } = require('../utils/game');
 
 const Tile = (props)=>{
     const { row, col } = props;
     const data = useSelector(state=>state);
-    const { currentOrder,selectedRow, selectedCol } = data;
+    const { correctOrder,currentOrder,selectedRow,selectedCol } = data;
     const dispatch = useDispatch();
     return(
-        <TouchableOpacity onPress={()=>{handleTilePress(row,col,selectedRow,selectedCol,dispatch,currentOrder)}}>
+        <TouchableOpacity onPress={()=>{handleTilePress(row,col,selectedRow,selectedCol,dispatch,currentOrder,correctOrder)}}>
             <ImageBackground source={require('../assets/t8.png')} style={[styles.tile,getOpacity(row,col,selectedRow,selectedCol)]}>
                 <Text style={styles.text}>{currentOrder[row][col]}</Text>
             </ImageBackground>
@@ -28,7 +30,7 @@ const getOpacity = (row,col,selectedRow,selectedCol) =>{
     return { opacity : 1}
 }
 
-const handleTilePress = (row,col,selectedRow,selectedCol,dispatch,currentOrder) =>{
+const handleTilePress = (row,col,selectedRow,selectedCol,dispatch,currentOrder,correctOrder) =>{
 
     if(selectedRow === null && selectedCol === null){
         dispatch(selectRow(row))
@@ -39,6 +41,11 @@ const handleTilePress = (row,col,selectedRow,selectedCol,dispatch,currentOrder) 
         [currentOrder[row][col],currentOrder[selectedRow][selectedCol]]=[currentOrder[selectedRow][selectedCol],currentOrder[row][col]]
         dispatch(replace(currentOrder))
         dispatch(unSelect())
+        const isFinished = checkOrder(currentOrder,correctOrder)
+        if(isFinished){
+            dispatch(setLevel())
+            dispatch(win())
+        }
     }
 }
 
