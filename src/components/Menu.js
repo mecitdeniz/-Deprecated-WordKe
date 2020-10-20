@@ -8,7 +8,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { setLevel } from '../store/actions';
+import { play, setLevel } from '../store/actions';
 
 
 const Menu = (props)=>{
@@ -20,6 +20,7 @@ const Menu = (props)=>{
             <ImageBackground source={require('../assets/menu.png')} style={styles.background}>
                 <TouchableOpacity style={styles.icon} onPress={()=>{
                     dispatch(setLevel())
+                    dispatch(play())
                     navigation.navigate("Game")}}>
                     <Image source={require('../assets/play.png')} style={styles.icon}/>
                 </TouchableOpacity>

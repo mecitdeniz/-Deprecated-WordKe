@@ -5,12 +5,14 @@ import {
     StatusBar,
     StyleSheet,
     Text,
+    FlatList,
     ImageBackground,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-
+const DATA = [ {id:"1"},{id:"2"},{id:"3"},{id:"4"},{id:"5"},{id:"6"}]
 import CoinBar from './CoinBar';
 import AddBar from './AddBar';
+import ShopItem from './ShopItem';
 
 const Shop = ({navigation}) =>{
 
@@ -26,8 +28,17 @@ const Shop = ({navigation}) =>{
                 coins={ coins }
                 diamonds={ diamonds }
             />
+            <View style={{flexDirection:"row",justifyContent:"space-around",height:100,width:200,alignItems:"center"}}>
+              <Text style={styles.text}>Wallpaper</Text>
+              <Text style={styles.text}>Tile</Text>
+            </View>
             <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
-                <Text style={styles.text}>Shop</Text>
+                  <FlatList
+                  data={DATA}
+                  numColumns={3}
+                  keyExtractor={item => item.id}
+                  renderItem={({ item }) => (<ShopItem/>)}
+                  />
             </View>
             <AddBar/>
         </ImageBackground>
@@ -49,7 +60,14 @@ const styles = StyleSheet.create({
       alignItems:"center",
       height:40,
       marginRight:5
-    }
+    },
+    background:{
+      width:350,
+      height:350,
+      justifyContent:"center",
+      alignItems:"center",
+      flexDirection:"row"
+  },
   });
 
 export default Shop;
