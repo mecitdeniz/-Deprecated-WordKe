@@ -2,15 +2,11 @@ import React, { useEffect } from 'react';
 import {
     View,
     SafeAreaView,
-    TouchableOpacity,
     StatusBar,
-    Image,
     StyleSheet,
-    Text,
     Alert,
     ImageBackground,
     BackHandler,
-    ToastAndroid,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -53,7 +49,7 @@ const Game = ({navigation}) =>{
   return(
     <SafeAreaView style={styles.container}>
         <StatusBar hidden/>
-        <ImageBackground source={require('../assets/bg1.png')} style={styles.container}>
+        <ImageBackground source={require('../assets/w1.png')} style={styles.container}>
             <CoinBar
                 coins={ coins }
                 diamonds={ diamonds }

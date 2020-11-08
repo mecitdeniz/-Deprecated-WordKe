@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState }from 'react';
 import {
     View,
     SafeAreaView,
@@ -6,10 +6,13 @@ import {
     StyleSheet,
     Text,
     FlatList,
+    TouchableOpacity,
     ImageBackground,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-const DATA = [ {id:"1"},{id:"2"},{id:"3"},{id:"4"},{id:"5"},{id:"6"}]
+import Wallpapers from '../db/wallpapers.json'
+import Tiles from '../db/tiles.json'
+
 import CoinBar from './CoinBar';
 import AddBar from './AddBar';
 import ShopItem from './ShopItem';
@@ -17,28 +20,51 @@ import ShopItem from './ShopItem';
 const Shop = ({navigation}) =>{
 
   const data = useSelector(state=>state);
+
+  const [ tab, setTab ] = useState(0);
+
   const { coins, diamonds } = data;
   const dispatch = useDispatch();
   
   return(
     <SafeAreaView style={styles.container}>
         <StatusBar hidden/>
-        <ImageBackground source={require('../assets/bg1.png')} style={styles.container}>
+        <ImageBackground source={require('../assets/w1.png')} style={styles.container}>
             <CoinBar
                 coins={ coins }
                 diamonds={ diamonds }
             />
             <View style={{flexDirection:"row",justifyContent:"space-around",height:100,width:200,alignItems:"center"}}>
-              <Text style={styles.text}>Wallpaper</Text>
-              <Text style={styles.text}>Tile</Text>
+              <TouchableOpacity onPress={()=>setTab(0)}>
+                <Text style={styles.text}>Arkaplan</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={()=>setTab(1)}>
+                <Text style={styles.text}>Taş</Text>
+              </TouchableOpacity>
             </View>
             <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
-                  <FlatList
-                  data={DATA}
-                  numColumns={3}
-                  keyExtractor={item => item.id}
-                  renderItem={({ item }) => (<ShopItem/>)}
-                  />
+
+              {tab == 0 
+              ?<FlatList
+                data={Tiles}
+                numColumns={3}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => (<ShopItem
+                item = { item }
+                tab={tab}
+                />)}
+              />
+              :<FlatList
+                data={Wallpapers}
+                numColumns={3}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => (<ShopItem
+                item = { item }
+                tab={tab}
+                />)}
+                />
+              }
+                  
             </View>
             <AddBar/>
         </ImageBackground>

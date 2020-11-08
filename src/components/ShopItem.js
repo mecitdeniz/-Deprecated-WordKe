@@ -2,36 +2,65 @@ import React from 'react';
 import {
     View,
     Text,
+    Image,
     StyleSheet,
     ImageBackground,
     TouchableOpacity
 } from 'react-native';
-import PropTypes from "prop-types";
+import { setWallpaper } from '../utils/game';
+import { setTile } from '../utils/game';
+
+
+const setBorderColor = (isUnlocked,isSelected)=>{
+    return isUnlocked && isSelected ? { borderColor: "green"} : { borderColor: "white"}
+}
 
 
 const ShopItem = (props)=>{
+    const { item,tab } = props;
+    const { isUnlocked, isSelected } = item; 
+        if(tab == 0 )return(
+            <ImageBackground source={setTile(item.name)}
+            imageStyle={{alignSelf:"center"}}
+            resizeMode="center"
+            style={[styles.iconL,setBorderColor(isUnlocked,isSelected),{margin:3,borderWidth:3,borderRadius:60,justifyContent:"center",alignItems:"center"}]}>
+                {renderButton(isUnlocked,isSelected)}
+            </ImageBackground>
+        )
+        else return(
+            <View style={[styles.container,setBorderColor(isUnlocked,isSelected)]}>
+                <ImageBackground source={setWallpaper(item.name)} style={{flex:1,justifyContent:"flex-end",paddingBottom:5}}>
+                {renderButton(isUnlocked,isSelected)}
+                </ImageBackground>
+            </View>
+        )
+}
+
+const renderButton = (isUnlocked,isSelected) =>{
     
-    return(
-        <View style={styles.container}>
-        <ImageBackground source={require('../assets/bg1.png')} style={{flex:1,justifyContent:"flex-end"}}>
-        {renderButton()}
-        </ImageBackground>
+    if(isUnlocked && isSelected)  return(
+        <View style={styles.button}>
+            <Image source={require("../assets/ok.png")} style={styles.iconS}/>
+            <Text style={styles.text}>Seçili</Text>
         </View>
     );
-}
-
-const renderButton = () =>{
-    return(
-        <TouchableOpacity style={{height:50,backgroundColor:"transparent",justifyContent:"center",alignItems:"center"}}>
-            <Text style={styles.text}>Kilitli</Text>
-            <Text style={styles.text}>100</Text>
+    else if(isUnlocked && !isSelected) return(
+        <TouchableOpacity style={styles.button}>
+            <Image source={require("../assets/close.png")} style={styles.iconS}/>
+            <Text style={styles.text}>Seç</Text>
         </TouchableOpacity>
-    );
+    )
+    else return(
+        <TouchableOpacity style={styles.button}>
+            <Image source={require("../assets/shop.png")} style={styles.iconS}/>
+            <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
+                <Text style={styles.text}>100</Text>
+                <Image source={require("../assets/coin.png")} style={styles.iconXS}/>
+            </View>
+            <Text style={styles.text}>Satın al</Text>
+        </TouchableOpacity>
+    )
 }
-
-ShopItem.prototypes = {
-    source: PropTypes.string.isRequired
-} 
 
 const styles = StyleSheet.create({
     container:{
@@ -50,13 +79,28 @@ const styles = StyleSheet.create({
     },
     text:{
         color:"white",
-        fontSize:20,
-        fontWeight:"bold",
+        fontSize:16,
+        fontWeight:"600",
+        textAlign:"center"
     },
-    icon:{
-        width:100,
-        height:100,
-        margin:5,
+    iconL:{
+        width:120,
+        height:120,
+    },
+    button:{
+        backgroundColor:"transparent",
+        justifyContent:"center",
+        alignItems:"center",
+        backgroundColor:"rgba(0,0,0,0.3)",
+        alignSelf:"center"
+    },
+    iconS:{
+        width:30,
+        height:30
+    },
+    iconXS:{
+        width:15,
+        height:15,
     }
 });
 

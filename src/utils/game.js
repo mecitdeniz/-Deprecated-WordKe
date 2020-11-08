@@ -9,6 +9,36 @@ const getPlayerData = () =>{
     }
 }
 
+const setWallpaper = (wallpaper) =>{
+    switch (wallpaper) {
+        case "w1":
+            return require('../assets/w1.png')            
+            break;
+        case "w2":
+            return require('../assets/w2.png')            
+            break;
+        default:
+            return require('../assets/w2.png')            
+            break;
+    }
+}
+
+
+const setTile = (tile) =>{
+    switch (tile) {
+        case "t1":
+            return require('../assets/t31.png')            
+            break;
+        case "t2":
+            return require('../assets/t10.png')            
+            break;
+        default:
+            return require('../assets/t8.png')            
+            break;
+    }
+}
+
+
 const getGameData =()=>{
 
     //const currentLevel = getPlayerData().currentLevel;
@@ -30,5 +60,7 @@ const checkOrder = (currentOrder,correctOrder) =>{
 
 module.exports = {
     getGameData,
-    checkOrder
+    checkOrder,
+    setWallpaper,
+    setTile
 }

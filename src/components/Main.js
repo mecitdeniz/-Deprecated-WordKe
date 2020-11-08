@@ -1,15 +1,9 @@
 import React from 'react';
 import {
-    View,
     SafeAreaView,
-    TouchableOpacity,
     StatusBar,
-    Image,
     StyleSheet,
-    Text,
     ImageBackground,
-    BackHandler,
-    ToastAndroid,
 } from 'react-native';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -45,7 +39,7 @@ const Main = ({navigation}) =>{
   return(
     <SafeAreaView style={styles.container}>
         <StatusBar hidden/>
-        <ImageBackground source={require('../assets/bg1.png')} style={styles.container}>
+        <ImageBackground source={require('../assets/w1.png')} style={styles.container}>
             <CoinBar
                 coins={ coins }
                 diamonds={ diamonds }

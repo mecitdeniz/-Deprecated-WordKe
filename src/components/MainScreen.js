@@ -82,7 +82,7 @@ class MainScreen extends React.Component {
         return(
             <SafeAreaView style={styles.container}>
                 <StatusBar hidden/>
-                <ImageBackground source={require('../assets/bg1.png')} style={{flex:1}}>
+                <ImageBackground source={require('../assets/w1.png')} style={{flex:1}}>
                     <View style={{height:100,flexDirection:"row",justifyContent:"flex-end",alignItems:"center"}}>
                         <View style={styles.textContainer}>
         <Text style={styles.text}>{coins}</Text>
