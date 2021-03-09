@@ -1,66 +1,46 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    Image,
-    StyleSheet,
-    ImageBackground,
-    TouchableOpacity
-} from 'react-native';
-import { useDispatch } from 'react-redux';
-import { play, setLevel } from '../store/actions';
+import {View, StyleSheet,} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {play, setLevel} from '../store/actions';
 
+import Button from './Button';
 
-const Menu = (props)=>{
-    const { navigation} = props;
-    const dispatch = useDispatch();
+export default function Menu(props){
 
-    return(
-        <View style={styles.container}>
-            <ImageBackground source={require('../assets/menu.png')} style={styles.background}>
-                <TouchableOpacity style={styles.icon} onPress={()=>{
-                    dispatch(setLevel())
-                    dispatch(play())
-                    navigation.navigate("Game")}}>
-                    <Image source={require('../assets/play.png')} style={styles.icon}/>
-                </TouchableOpacity>
-                <View style={{flexDirection:"row"}}>
-                    <TouchableOpacity style={styles.icon} onPress={()=>{
-                        navigation.navigate("Shop")}}>
-                        <Image source={require('../assets/shop.png')} style={styles.icon}/>
-                    </TouchableOpacity><TouchableOpacity style={styles.icon} onPress={()=>{
-                        navigation.navigate("Shop")}}>
-                        <Image source={require('../assets/about.png')} style={styles.icon}/>
-                    </TouchableOpacity>
-                </View>
-                
-            </ImageBackground>
+  const {navigation} = props;
+  const dispatch = useDispatch();
+
+  return (
+    <View style={styles.container}>
+        <Button
+          title="Play"
+          onPress={() => {
+            dispatch(setLevel());
+            dispatch(play());
+            navigation.navigate('Game');
+          }}
+        />
+
+        <View style={{flexDirection: 'row'}}>
+          <Button
+            small
+            title="Star"
+            onPress={() => navigation.navigate('Shop')}
+          />
+          <Button
+            small
+            title="Theme"
+            onPress={() => navigation.navigate('Shop')}
+          />
         </View>
-    );
-}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        justifyContent:"center",
-        alignItems:"center"
-    },
-    text:{
-        color:"white",
-        fontSize:30,
-        fontWeight:"bold",
-    },
-    background:{
-        width:350,
-        height:350,
-        justifyContent:"center",
-        alignItems:"center"
-    },
-    icon:{
-        width:100,
-        height:100,
-        margin:5,
-    }
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
-
-export default Menu;
