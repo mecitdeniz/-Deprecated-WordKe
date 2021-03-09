@@ -1,24 +1,18 @@
 import React from 'react';
-import {
-    SafeAreaView,
-    StatusBar,
-    StyleSheet,
-    ImageBackground,
-} from 'react-native';
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import admob, { MaxAdContentRating } from '@react-native-firebase/admob';
+import {View, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import admob, {MaxAdContentRating} from '@react-native-firebase/admob';
 
 import CoinBar from './CoinBar';
 import AddBar from './AddBar';
 import Menu from './Menu';
-import { configure} from '../store/actions';
-const { handleTilePress } = require('../utils/game');
+import {configure} from '../store/actions';
+const {handleTilePress} = require('../utils/game');
 
-const Main = ({navigation}) =>{
-
-  const data = useSelector(state=>state);
-  const { coins, diamonds, isConfigured } = data;
+const Main = ({navigation}) => {
+  const data = useSelector((state) => state);
+  const {coins, diamonds, isConfigured} = data;
   const dispatch = useDispatch();
   /*
   useEffect(() => {
@@ -36,36 +30,23 @@ const Main = ({navigation}) =>{
     });
   })*/
 
-  return(
+  return (
     <SafeAreaView style={styles.container}>
-        <StatusBar hidden/>
-        <ImageBackground source={require('../assets/w1.png')} style={styles.container}>
-            <CoinBar
-                coins={ coins }
-                diamonds={ diamonds }
-            />
-            <Menu navigation={navigation}/>
-            <AddBar/>
-        </ImageBackground>
+      <StatusBar hidden />
+      <View style={styles.container}>
+        <CoinBar coins={coins} diamonds={diamonds} />
+        <Menu navigation={navigation} />
+        <AddBar />
+      </View>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
-    container:{
-      flex:1
-    },
-    text:{
-        color:"white",
-        fontSize:30,
-        fontWeight:"bold",
-    },
-    textContainer:{
-      flexDirection:"row",
-      alignItems:"center",
-      height:40,
-      marginRight:5
-    }
-  });
+  container: {
+    flex: 1,
+    backgroundColor:"#3698A6"
+  },
+});
 
 export default Main;
