@@ -7,7 +7,6 @@ const Stack = createStackNavigator();
 import { Provider } from 'react-redux';
 import { store } from './src/store/store';
 //Screens
-import MainScreen from './src/components/MainScreen';
 import Main from './src/components/Main';
 import Game from './src/components/Game';
 import Shop from './src/components/Shop';
