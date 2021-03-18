@@ -1,99 +1,65 @@
-import React, { useState }from 'react';
+import React, {useState} from 'react';
 import {
-    View,
-    SafeAreaView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    FlatList,
-    TouchableOpacity,
-    ImageBackground,
+  SafeAreaView,
+  StatusBar,
+  FlatList,
 } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import Wallpapers from '../db/wallpapers.json'
-import Tiles from '../db/tiles.json'
-
-import CoinBar from './CoinBar';
-import AddBar from './AddBar';
+import {useSelector, useDispatch} from 'react-redux';
 import ShopItem from './ShopItem';
 
-const Shop = ({navigation}) =>{
+const themes = [
+  {
+    id: 0,
+    backgroundColor: '#15BDDB',
+    name: 'Blue Raspberry',
+    tileColor: '#79E8E2',
+    borderColor: '#79E8E2',
+    textColor: '#15BDDB',
+  },
+  {
+    id: 1,
+    backgroundColor: '#F9EEE2',
+    name: 'Alpaca Wool',
+    tileColor: '#182F53',
+    borderColor: '#182F53',
+    textColor: '#F9EEE2',
+  },
+  {
+    id: 2,
+    backgroundColor: '#F57A4D',
+    name: 'Coral Rose',
+    tileColor: '#9C3725',
+    borderColor: '#9C3725',
+    textColor: '#F57A4D',
+  },
+  {
+    id: 3,
+    backgroundColor: '#292939',
+    name: 'Nighty Sky',
+    tileColor: '#F2F2E6',
+    borderColor: '#F2F2E6',
+    textColor: '#292939',
+  },
+];
 
-  const data = useSelector(state=>state);
+const Shop = ({navigation}) => {
+  const data = useSelector((state) => state);
 
-  const [ tab, setTab ] = useState(0);
-
-  const { coins, diamonds } = data;
+  const {coins, diamonds} = data;
   const dispatch = useDispatch();
-  
-  return(
-    <SafeAreaView style={styles.container}>
-        <StatusBar hidden/>
-        <ImageBackground source={require('../assets/w1.png')} style={styles.container}>
-            <CoinBar
-                coins={ coins }
-                diamonds={ diamonds }
-            />
-            <View style={{flexDirection:"row",justifyContent:"space-around",height:100,width:200,alignItems:"center"}}>
-              <TouchableOpacity onPress={()=>setTab(0)}>
-                <Text style={styles.text}>Arkaplan</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={()=>setTab(1)}>
-                <Text style={styles.text}>Taş</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
 
-              {tab == 0 
-              ?<FlatList
-                data={Tiles}
-                numColumns={3}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => (<ShopItem
-                item = { item }
-                tab={tab}
-                />)}
-              />
-              :<FlatList
-                data={Wallpapers}
-                numColumns={3}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => (<ShopItem
-                item = { item }
-                tab={tab}
-                />)}
-                />
-              }
-                  
-            </View>
-            <AddBar/>
-        </ImageBackground>
+  return (
+    <SafeAreaView style={{flex:1}}>
+      <StatusBar hidden />
+      <FlatList
+        data={themes}
+        numColumns={1}
+        keyExtractor={(item) => item.id}
+        renderItem={({item}) => <ShopItem item={item}/>}
+      />
+
     </SafeAreaView>
   );
-}
-
-const styles = StyleSheet.create({
-    container:{
-      flex:1
-    },
-    text:{
-        color:"white",
-        fontSize:30,
-        fontWeight:"bold",
-    },
-    textContainer:{
-      flexDirection:"row",
-      alignItems:"center",
-      height:40,
-      marginRight:5
-    },
-    background:{
-      width:350,
-      height:350,
-      justifyContent:"center",
-      alignItems:"center",
-      flexDirection:"row"
-  },
-  });
+};
 
 export default Shop;
